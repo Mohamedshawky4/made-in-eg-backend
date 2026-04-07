@@ -76,5 +76,10 @@ productSchema.pre(/^find/, function (next) {
   next();
 });
 
+productSchema.pre('countDocuments', function (next) {
+  this.where({ isDeleted: { $ne: true } });
+  next();
+});
+
 const Product = mongoose.model('Product', productSchema);
 module.exports = Product;
